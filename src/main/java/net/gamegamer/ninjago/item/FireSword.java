@@ -1,7 +1,9 @@
 package net.gamegamer.ninjago.item;
 
-import net.gamegamer.ninjago.entities.ModEntities;
+import net.gamegamer.ninjago.entities.FireWave;
+import net.gamegamer.ninjago.entities.ModEntityTypes;
 
+import net.gamegamer.ninjago.entities.ModEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -47,9 +49,9 @@ public class FireSword extends SwordItem {
                         SoundCategory.PLAYERS, 1.0F, 1.0F);
 
 
-                ModEntities shockwave = new ModEntities(ModEntities.SHOCKWAVE, world);
-                shockwave.setPosition(player.getX(), player.getY(), player.getZ()); // Set position
-                world.spawnEntity(shockwave);
+                FireWave firewave = new FireWave(ModEntityTypes.FIREWAVE, world);
+                firewave.setPosition(player.getX(), player.getY(), player.getZ()); // Set position
+                world.spawnEntity(firewave);
 
 
 
