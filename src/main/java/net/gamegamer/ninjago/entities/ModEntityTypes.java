@@ -20,6 +20,15 @@ public class ModEntityTypes {
                     .build(RegistryKey.of(Registries.ENTITY_TYPE.getKey(),
                             Identifier.of(Ninjadontgo.MOD_ID, "firewave"))));
 
+   /* public static final EntityType<FireWave> FIREWAVE = Registry.register(
+            Registries.ENTITY_TYPE,
+            Identifier.of(Ninjadontgo.MOD_ID, "firewave"),
+            FabricEntityTypeBuilder.create(SpawnGroup.MISC, FireWave::new)
+                    .dimensions(EntityDimensions.fixed(5.0F, 0.1F))
+                    .build());
+
+    */
+
     public ModEntityTypes(EntityType<FireWave> firewave, World world) {
     }
 
