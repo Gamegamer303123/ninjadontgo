@@ -11,6 +11,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -49,17 +51,17 @@ public class FireSword extends SwordItem {
                         SoundCategory.PLAYERS, 1.0F, 1.0F);
 
 
-                FireWave firewave = new FireWave(ModEntityTypes.FIREWAVE, world);
-                firewave.setPosition(player.getX(), player.getY(), player.getZ()); // Set position
-                world.spawnEntity(firewave);
+               FireWave firewave = new FireWave(ModEntityTypes.FIREWAVE, world);
+               firewave.setPosition(player.getX(), player.getY(), player.getZ());
+               world.spawnEntity(firewave);
 
 
 
                 // Apply cooldown of 20 ticks (1 second)
                 player.getItemCooldownManager().set(stack, 20);
             }
-            else {
-             //   world.addParticle();
+            else if (world.isClient){
+             world.addParticle(ParticleTypes.TOTEM_OF_UNDYING, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
 
             }
 
