@@ -10,13 +10,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class ModEntityTypes {
-    
-    
+
+
     public static final EntityType<FireWave> FIREWAVE = Registry.register(
             Registries.ENTITY_TYPE,
             Identifier.of(Ninjadontgo.MOD_ID, "firewave"),
             FabricEntityTypeBuilder.create(SpawnGroup.MISC, FireWave::new)
-                    .dimensions(EntityDimensions.fixed(5.0F, 0.1F))
+                    .dimensions(EntityDimensions.fixed(5.0F, 0.0001F))
                     .build(RegistryKey.of(Registries.ENTITY_TYPE.getKey(),
                             Identifier.of(Ninjadontgo.MOD_ID, "firewave"))));
 

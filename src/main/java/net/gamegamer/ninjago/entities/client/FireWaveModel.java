@@ -33,7 +33,6 @@ public class FireWaveModel extends Model {
         return TexturedModelData.of(modelData, 32, 32);
     }
 
-
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
         base.render(matrices, vertices, light, overlay);
     }

@@ -1,22 +1,19 @@
 package net.gamegamer.ninjago.entities;
 
-import net.gamegamer.ninjago.item.FireSword;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 
 public class FireWave extends Entity {
-    public FireWave(EntityType<?> type, World world) {
+
+    public FireWave(EntityType<? extends FireWave> type, World world) {
         super(type, world);
         this.setNoGravity(true);
-
-
     }
 
     @Override
@@ -47,10 +44,11 @@ public class FireWave extends Entity {
 
     @Override
     protected void readCustomDataFromNbt(NbtCompound nbt) {
+
     }
 
     @Override
     protected void writeCustomDataToNbt(NbtCompound nbt) {
+
     }
 }
-
