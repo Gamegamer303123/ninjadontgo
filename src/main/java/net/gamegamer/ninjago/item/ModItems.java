@@ -14,7 +14,7 @@ import java.util.function.Function;
 public class ModItems {
 
     public static final Item SWORD_OF_FIRE = registerItem("sword_of_fire",
-            new FireSword(ToolMaterials.NETHERITE, 8f, -2.4f, new Item.Settings()));
+            new FireSword(ToolMaterials.NETHERITE, new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.NETHERITE, 3, -2.4f))));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(Ninjadontgo.MOD_ID, name), item);

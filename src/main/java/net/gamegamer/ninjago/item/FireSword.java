@@ -1,23 +1,16 @@
 package net.gamegamer.ninjago.item;
 
-import com.mojang.datafixers.Typed;
 import net.gamegamer.ninjago.entities.FireWave;
-import net.gamegamer.ninjago.entities.ModEntityTypes;
+import net.gamegamer.ninjago.entities.ModEntities;
 
-import net.gamegamer.ninjago.entities.ModEntityTypes;
-import net.gamegamer.ninjago.particles.ModParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
 
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -25,7 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class FireSword extends SwordItem {
-    public FireSword(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
+    public FireSword(ToolMaterial material, Settings settings) {
         super(material, settings);
     }
 
@@ -56,7 +49,7 @@ public class FireSword extends SwordItem {
                         SoundCategory.PLAYERS, 1.0F, 1.0F);
 
 
-               FireWave firewave = new FireWave(ModEntityTypes.FIREWAVE, world);
+               FireWave firewave = new FireWave(ModEntities.FIREWAVE, world);
                firewave.setPosition(player.getX(), player.getY(), player.getZ());
                world.spawnEntity(firewave);
 
