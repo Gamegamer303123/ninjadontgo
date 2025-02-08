@@ -15,12 +15,23 @@ public class ModEntityTypes {
     public static final EntityType<FireWave> FIREWAVE = Registry.register(
             Registries.ENTITY_TYPE,
             Identifier.of(Ninjadontgo.MOD_ID, "firewave"),
+            EntityType.Builder.create(FireWave::new, SpawnGroup.MISC)
+                    .dimensions(5.0f, 0.1f)
+                    .build()
+    );
+
+
+
+
+   /* public static final EntityType<FireWave> FIREWAVE = Registry.register(
+            Registries.ENTITY_TYPE,
+            Identifier.of(Ninjadontgo.MOD_ID, "firewave"),
             FabricEntityTypeBuilder.create(SpawnGroup.MISC, FireWave::new)
                     .dimensions(EntityDimensions.fixed(5.0F, 0.0001F))
                     .build(RegistryKey.of(Registries.ENTITY_TYPE.getKey(),
                             Identifier.of(Ninjadontgo.MOD_ID, "firewave"))));
 
-   /* public static final EntityType<FireWave> FIREWAVE = Registry.register(
+    public static final EntityType<FireWave> FIREWAVE = Registry.register(
             Registries.ENTITY_TYPE,
             Identifier.of(Ninjadontgo.MOD_ID, "firewave"),
             FabricEntityTypeBuilder.create(SpawnGroup.MISC, FireWave::new)
@@ -28,9 +39,6 @@ public class ModEntityTypes {
                     .build());
 
     */
-
-    public ModEntityTypes(EntityType<FireWave> firewave, World world) {
-    }
 
 
     //Cannot resolve method 'register(DefaultedRegistry<EntityType<?>>, Identifier, FabricEntityTypeBuilder<T>)'

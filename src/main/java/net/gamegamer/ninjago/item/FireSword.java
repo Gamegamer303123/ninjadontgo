@@ -1,9 +1,11 @@
 package net.gamegamer.ninjago.item;
 
+import com.mojang.datafixers.Typed;
 import net.gamegamer.ninjago.entities.FireWave;
 import net.gamegamer.ninjago.entities.ModEntityTypes;
 
 import net.gamegamer.ninjago.entities.ModEntityTypes;
+import net.gamegamer.ninjago.particles.ModParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,14 +18,15 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Cooldown;
+
 import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class FireSword extends SwordItem {
     public FireSword(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
-        super(material, attackDamage, attackSpeed, settings);
+        super(material, settings);
     }
 
     public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
@@ -39,12 +42,14 @@ public class FireSword extends SwordItem {
     }
 
 
-    @Override
-    public ActionResult use(World world, PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getStackInHand(hand);
+
+
+   @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+
 
         // Check if item is on cooldown
-        if (!player.getItemCooldownManager().isCoolingDown(stack)) {
+        if (!player.getItemCooldownManager().isCoolingDown(this )) {
             if (!world.isClient) {
                 // Play a sound
                 world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND,
@@ -58,18 +63,18 @@ public class FireSword extends SwordItem {
 
 
                 // Apply cooldown of 20 ticks (1 second)
-                player.getItemCooldownManager().set(stack, 20);
+                player.getItemCooldownManager().set(this, 20);
             }
             else if (world.isClient){
-             world.addParticle(ParticleTypes.TOTEM_OF_UNDYING, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
+          //   world.addParticle(ModParticles.FIREWAVE_PARTICLE, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
 
             }
 
 
-            return ActionResult.SUCCESS;
+            return TypedActionResult.success(this.getDefaultStack());
         }
 
-        return ActionResult.FAIL;
+        return TypedActionResult.fail(this.getDefaultStack());
     }
 
 

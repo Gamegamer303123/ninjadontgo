@@ -1,10 +1,8 @@
 package net.gamegamer.ninjago.item;
 
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.gamegamer.ninjago.Ninjadontgo;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.item.SwordItem;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -14,19 +12,22 @@ import net.minecraft.util.Identifier;
 import java.util.function.Function;
 
 public class ModItems {
-    public static Item register(Item item, RegistryKey<Item> registryKey) {
-        // Register the item.
-        Item registeredItem = Registry.register(Registries.ITEM, registryKey.getValue(), item);
 
-        // Return the registered item!
-        return registeredItem;
+    public static final Item SWORD_OF_FIRE = registerItem("sword_of_fire",
+            new FireSword(ToolMaterials.NETHERITE, 8f, -2.4f, new Item.Settings()));
+
+    private static Item registerItem(String name, Item item) {
+        return Registry.register(Registries.ITEM, Identifier.of(Ninjadontgo.MOD_ID, name), item);
+
+
     }
 
-    public static final RegistryKey<Item> FIRE_SWORD_KEY = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(Ninjadontgo.MOD_ID, "sword_of_fire"));
-    public static final Item FIRE_SWORD = register(new FireSword(ToolMaterial.NETHERITE, 3f, -2.4f, new Item.Settings().registryKey(FIRE_SWORD_KEY)), FIRE_SWORD_KEY);
+    public static void registerModItems() {
+        Ninjadontgo.LOGGER.info("Registering Mod Items for " + Ninjadontgo.MOD_ID);
 
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
 
-    public static void initialize() {
+        });
     }
 
 

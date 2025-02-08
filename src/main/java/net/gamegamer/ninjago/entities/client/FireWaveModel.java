@@ -1,4 +1,4 @@
-package net.gamegamer.ninjago.entities.client;
+/*package net.gamegamer.ninjago.entities.client;
 
 import com.ibm.icu.text.Normalizer;
 import net.gamegamer.ninjago.Ninjadontgo;
@@ -39,3 +39,4 @@ public class FireWaveModel extends Model {
 
 
 }
+*/

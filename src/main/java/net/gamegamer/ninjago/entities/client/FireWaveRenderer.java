@@ -2,26 +2,35 @@ package net.gamegamer.ninjago.entities.client;
 
 import net.gamegamer.ninjago.Ninjadontgo;
 import net.gamegamer.ninjago.entities.FireWave;
-import net.minecraft.client.render.entity.EmptyEntityRenderer;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.state.EntityRenderState;
+
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.RotationAxis;
 
-public class FireWaveRenderer extends EmptyEntityRenderer<FireWave> {
-    private static final Identifier TEXTURE = Identifier.of(Ninjadontgo.MOD_ID, "textures/entity/firewave");
-    public FireWaveRenderer(EntityRendererFactory.Context context) {
-        super(context);
+public class FireWaveRenderer extends EntityRenderer<FireWave> {
+
+    private static final Identifier TEXTURE = Identifier.of(Ninjadontgo.MOD_ID, "textures/entity/firewave.png");
+
+    public FireWaveRenderer(EntityRendererFactory.Context ctx) {
+        super(ctx);
     }
 
-    @Override
-    public EntityRenderState createRenderState() {
-        return new EntityRenderState();
-    }
+
+
+
+
+
+
+
+
+
+
+
 
     public Identifier getTexture(FireWave entity) {
         return TEXTURE;
     }
-
-
 }

@@ -1,4 +1,4 @@
-package net.gamegamer.ninjago.entities.client;
+/*package net.gamegamer.ninjago.entities.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -9,3 +9,4 @@ public class ModEntityRenderers {
         EntityRendererRegistry.register(ModEntityTypes.FIREWAVE, FireWaveRenderer::new);
     }
 }
+*/
