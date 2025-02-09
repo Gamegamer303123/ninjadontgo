@@ -1,6 +1,7 @@
 package net.gamegamer.ninjago;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -8,6 +9,8 @@ import net.gamegamer.ninjago.entities.FireWave;
 import net.gamegamer.ninjago.entities.ModEntities;
 import net.gamegamer.ninjago.entities.client.FireWaveModel;
 import net.gamegamer.ninjago.entities.client.FireWaveRenderer;
+import net.gamegamer.ninjago.particles.FireWaveParticle;
+import net.minecraft.client.particle.EndRodParticle;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
 
@@ -25,6 +28,8 @@ public class NinjadontgoClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        // For this example, we will use the end rod particle behaviour.
+        ParticleFactoryRegistry.getInstance().register(Ninjadontgo.FIREWAVEPARTICLE, FireWaveParticle.Factory::new);
 
         EntityRendererRegistry.register(FIREWAVE, FireWaveRenderer::new);
         //ParticleFactoryRegistry.getInstance().register(ModParticles.FIREWAVE_PARTICLE, FireWaveParticle.Factory::new);

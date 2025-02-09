@@ -3,6 +3,7 @@ package net.gamegamer.ninjago.entities.client;
 import com.google.common.collect.ImmutableList;
 import net.gamegamer.ninjago.entities.FireWave;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
@@ -10,19 +11,25 @@ import net.minecraft.client.util.math.MatrixStack;
 
 public class FireWaveModel extends EntityModel<FireWave> {
 
+    public static final String LAYER_LOCATION = "firewave";
+
     private final ModelPart base;
 
-    public FireWaveModel(ModelPart modelPart) {
-        this.base = modelPart.getChild(EntityModelPartNames.CUBE);
 
-
+    public FireWaveModel(ModelPart root) {
+        super(RenderLayer::getEntityCutout);
+        this.base = root.getChild(EntityModelPartNames.CUBE);
     }
+
+
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        modelPartData.addChild(EntityModelPartNames.CUBE, ModelPartBuilder.create().uv(0, 0).cuboid(-6F, 12F, -6F, 48F, 0F, 48F), ModelTransform.pivot(0F, 0F, 0F));
+        modelPartData.addChild(EntityModelPartNames.CUBE, ModelPartBuilder.create().uv(-32, 0).cuboid(-64.0F, -12.0F, -64.0F, 64.0F, 0.0F, 64.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
         return TexturedModelData.of(modelData, 64, 64);
     }
+
+
 
 
     @Override
