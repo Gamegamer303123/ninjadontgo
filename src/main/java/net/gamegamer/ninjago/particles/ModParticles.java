@@ -19,5 +19,6 @@ public class ModParticles {
 
     public static void registerParticles() {
         // This method is called during mod initialization to register the particles.
+        register("firewave_particle", false);
     }
 }

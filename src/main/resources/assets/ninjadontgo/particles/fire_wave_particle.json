@@ -1,3 +1,12 @@
 {
-  "textures": ["ninjadontgo:fire_wave_particle"]
+  "textures": [
+    "ninjadontgo:fire_wave_particle0",
+    "ninjadontgo:fire_wave_particle1",
+    "ninjadontgo:fire_wave_particle2",
+    "ninjadontgo:fire_wave_particle3",
+    "ninjadontgo:fire_wave_particle4",
+    "ninjadontgo:fire_wave_particle5",
+    "ninjadontgo:fire_wave_particle6",
+    "ninjadontgo:fire_wave_particle7"
+  ]
 }

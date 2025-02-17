@@ -39,3 +39,4 @@ public class FireWaveRenderer extends EntityRenderer<FireWave> {
         return Identifier.of(Ninjadontgo.MOD_ID, "textures/entity/firewave.png");
     }
 }
+

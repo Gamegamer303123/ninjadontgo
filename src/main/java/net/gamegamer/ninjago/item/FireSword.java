@@ -1,8 +1,10 @@
 package net.gamegamer.ninjago.item;
 
+import net.gamegamer.ninjago.Ninjadontgo;
 import net.gamegamer.ninjago.entities.FireWave;
 import net.gamegamer.ninjago.entities.ModEntities;
 
+import net.gamegamer.ninjago.particles.ModParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -45,13 +47,13 @@ public class FireSword extends SwordItem {
         if (!player.getItemCooldownManager().isCoolingDown(this )) {
             if (!world.isClient) {
                 // Play a sound
-                world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND,
-                        SoundCategory.PLAYERS, 1.0F, 1.0F);
+                world.playSound(player, player.getBlockPos(), SoundEvents.BLOCK_TRIAL_SPAWNER_OMINOUS_ACTIVATE, SoundCategory.PLAYERS, 1.0F, 0.5F);
+                world.addParticle(ModParticles.FIREWAVE_PARTICLE, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
+                      //  null, player.getBlockPos(), SoundEvents.,
+                        //SoundCategory.PLAYERS, 1.0F, 1.0F);
 
 
-               FireWave firewave = new FireWave(ModEntities.FIREWAVE, world);
-               firewave.setPosition(player.getX(), player.getY(), player.getZ());
-               world.spawnEntity(firewave);
+
 
 
 
@@ -59,7 +61,9 @@ public class FireSword extends SwordItem {
                 player.getItemCooldownManager().set(this, 20);
             }
             else if (world.isClient){
-          //   world.addParticle(ModParticles.FIREWAVE_PARTICLE, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
+             world.addParticle(Ninjadontgo.FIREWAVEPARTICLE, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
+             world.playSound(player, player.getBlockPos(), SoundEvents.BLOCK_TRIAL_SPAWNER_OMINOUS_ACTIVATE, SoundCategory.PLAYERS, 1.0F, 1.0F);
+
 
             }
 
