@@ -3,6 +3,7 @@ package net.gamegamer.ninjago;
 import net.fabricmc.api.ModInitializer;
 
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.gamegamer.ninjago.entities.FireWave;
@@ -14,6 +15,7 @@ import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.WorldSavePath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +30,14 @@ public class Ninjadontgo implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+			PowerManager.loadPowers(server.getSavePath(WorldSavePath.ROOT));
+		});
+
+		ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
+			PowerManager.savePowers(server.getSavePath(WorldSavePath.ROOT));
+		});
+
 		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "fire_wave_particle"), FIREWAVEPARTICLE);
 
 

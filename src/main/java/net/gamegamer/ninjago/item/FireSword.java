@@ -1,23 +1,34 @@
 package net.gamegamer.ninjago.item;
 
 import net.gamegamer.ninjago.Ninjadontgo;
+import net.gamegamer.ninjago.PowerManager;
 import net.gamegamer.ninjago.entities.FireWave;
 import net.gamegamer.ninjago.entities.ModEntities;
 
 import net.gamegamer.ninjago.particles.ModParticles;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.component.type.ToolComponent;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.WorldSavePath;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class FireSword extends SwordItem {
     public FireSword(ToolMaterial material, Settings settings) {
@@ -28,7 +39,17 @@ public class FireSword extends SwordItem {
         return !miner.isCreative();
     }
 
+    private static ToolComponent createToolComponent() {
+        return new ToolComponent(List.of(ToolComponent.Rule.ofAlwaysDropping(List.of(Blocks.COBWEB), 15.0F), ToolComponent.Rule.of(BlockTags.SWORD_EFFICIENT, 1.5F)), 1.0F, 2);
+    }
+
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+       if (attacker instanceof PlayerEntity player) {
+             float baseDamage = (float) attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+             float extraDamage = baseDamage * 0.1f; //
+            target.damage(player.getDamageSources().playerAttack(player), extraDamage);
+            System.out.println("basedamage:" + baseDamage + "increased damaga: " + extraDamage);
+        }
         return true;
     }
 
@@ -41,6 +62,7 @@ public class FireSword extends SwordItem {
 
    @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        ItemStack itemStack = player.getStackInHand(Hand.MAIN_HAND);
 
 
         // Check if item is on cooldown
@@ -51,6 +73,13 @@ public class FireSword extends SwordItem {
                 world.addParticle(ModParticles.FIREWAVE_PARTICLE, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
                       //  null, player.getBlockPos(), SoundEvents.,
                         //SoundCategory.PLAYERS, 1.0F, 1.0F);
+                boolean success = PowerManager.assignPower(player, "fire", player.getServer().getSavePath(WorldSavePath.ROOT));
+
+                if (success) {
+                    player.sendMessage(Text.of("You have equipped the Fire power!"), false);
+                } else {
+                    player.sendMessage(Text.of("This power is already taken!"), false);
+                }
 
 
 
@@ -68,10 +97,10 @@ public class FireSword extends SwordItem {
             }
 
 
-            return TypedActionResult.success(this.getDefaultStack());
+            return TypedActionResult.success(itemStack);
         }
 
-        return TypedActionResult.fail(this.getDefaultStack());
+        return TypedActionResult.fail(itemStack);
     }
 
 

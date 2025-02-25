@@ -9,9 +9,31 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 public class ModItems {
+    public static final Item EMPTY_SCROLL = registerItem("empty_scroll",
+            new Scrolls("empty", new Item.Settings().maxCount(1)));
+
+    private static final Map<String, Item> POWER_SCROLLS = new HashMap<>();
+
+    static {
+        registerPowerScroll("fire");
+        registerPowerScroll("ice");
+        registerPowerScroll("lightning");
+        // Add more powers here
+    }
+
+    private static void registerPowerScroll(String power) {
+        POWER_SCROLLS.put(power, registerItem(power + "_scroll",
+                new Scrolls(power, new Item.Settings().maxCount(1))));
+    }
+
+    public static Item getPowerScroll(String power) {
+        return POWER_SCROLLS.getOrDefault(power, EMPTY_SCROLL);
+    }
 
     public static final Item SWORD_OF_FIRE = registerItem("sword_of_fire",
             new FireSword(ToolMaterials.NETHERITE, new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.NETHERITE, 3, -2.4f))));
