@@ -6,6 +6,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -24,8 +27,13 @@ public class Scrolls extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-        if (world.isClient) return TypedActionResult.success(player.getStackInHand(hand)); // Only run on the server
+        if (world.isClient) {
 
+            world.playSound(player, player.getBlockPos(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1.0F, 0.5F);
+            return TypedActionResult.success(player.getStackInHand(hand));
+        }
+
+        world.playSound(player, player.getBlockPos(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1.0F, 0.5F);
         if (!(player instanceof ServerPlayerEntity serverPlayer)) return TypedActionResult.fail(player.getStackInHand(hand));
 
         ItemStack heldItem = player.getStackInHand(hand);
@@ -50,6 +58,8 @@ public class Scrolls extends Item {
             player.sendMessage(Text.of("You stored your " + playerPower + " power in the scroll!"), true);
             player.setStackInHand(hand, new ItemStack(ModItems.getPowerScroll(playerPower))); // Turn scroll into power scroll
             return TypedActionResult.success(player.getStackInHand(hand));
+
+
         } else {
             player.sendMessage(Text.of("You have no power to store."), true);
             return TypedActionResult.fail(player.getStackInHand(hand));

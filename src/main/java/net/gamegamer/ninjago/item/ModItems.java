@@ -23,6 +23,7 @@ public class ModItems {
         registerPowerScroll("fire");
         registerPowerScroll("ice");
         registerPowerScroll("lightning");
+        registerPowerScroll("earth");
         // Add more powers here
     }
 
