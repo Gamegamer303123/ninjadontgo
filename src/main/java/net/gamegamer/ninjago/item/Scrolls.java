@@ -36,42 +36,58 @@ public class Scrolls extends Item {
 
         Path worldPath = serverPlayer.getServer().getSavePath(WorldSavePath.ROOT);
         ItemStack heldItem = player.getStackInHand(hand);
+        String currentPower = PowerManager.getPlayerPower(player); // Player’s active power
 
-        // CASE 1: Player uses a Power Scroll to GET a power
-        if (!powerType.equals("empty")) {
-            int savedLevel = PowerManager.getPowerLevel(player, powerType); // Get saved level
-            boolean success = PowerManager.assignPower(player, powerType, worldPath);
-
-            if (success) {
-                // Restore previous level (or start at 1 if new)
-                if (savedLevel > 1) {
-                    PowerManager.setPowerLevel(player, powerType, savedLevel, worldPath);
-                }
-
-                player.sendMessage(Text.of("You have gained the " + powerType + " power!"), true);
+        // CASE 1: If using an empty scroll, store the player's current power
+        if (powerType.equals("empty")) {
+            if (currentPower != null) {
+                PowerManager.removePower(player, worldPath);
+                player.setStackInHand(hand, new ItemStack(ModItems.getPowerScroll(currentPower)));
+                player.sendMessage(Text.of("You stored your " + currentPower + " power in the scroll!"), true);
                 playScrollSound(world, player);
-                player.setStackInHand(hand, new ItemStack(ModItems.EMPTY_SCROLL)); // Give empty scroll
                 return TypedActionResult.success(player.getStackInHand(hand));
             } else {
-                player.sendMessage(Text.of("This power is already taken!"), true);
+                player.sendMessage(Text.of("You have no power to store."), true);
                 return TypedActionResult.fail(player.getStackInHand(hand));
             }
         }
 
-        // CASE 2: Player uses an Empty Scroll to REMOVE and STORE their power
-        String playerPower = PowerManager.getPlayerPower(player);
-        if (playerPower != null) {
-            int currentLevel = PowerManager.getPowerLevel(player, playerPower);
-            PowerManager.removePower(player, worldPath);
+        // CASE 2: If using a power scroll
+        if (!powerType.equals(currentPower)) {
+            if (PowerManager.isPowerTaken(powerType)) { // New check to prevent duplicates
+                player.sendMessage(Text.of("This power is already taken!"), true);
+                return TypedActionResult.fail(player.getStackInHand(hand));
+            }
 
-            player.sendMessage(Text.of("You stored your " + playerPower + " power in the scroll!"), true);
-            playScrollSound(world, player);
-            player.setStackInHand(hand, new ItemStack(ModItems.getPowerScroll(playerPower))); // Turn scroll into power scroll
-            return TypedActionResult.success(player.getStackInHand(hand));
-        } else {
-            player.sendMessage(Text.of("You have no power to store."), true);
-            return TypedActionResult.fail(player.getStackInHand(hand));
+            int savedLevel = PowerManager.getPowerLevel(player, powerType); // Get level of the new power
+            boolean success = PowerManager.assignPower(player, powerType, worldPath); // Assign new power
+
+            if (success) {
+                if (currentPower != null) { // If the player had a power before
+
+                    player.setStackInHand(hand, new ItemStack(ModItems.getPowerScroll(currentPower)));
+                    player.sendMessage(Text.of("You stored your " + currentPower + " power in the scroll!"), true);
+                } else {
+                    player.setStackInHand(hand, new ItemStack(ModItems.EMPTY_SCROLL));
+                }
+
+                // Restore power level if it existed before
+                if (savedLevel >= 1) {
+                    PowerManager.setPowerLevel(player, powerType, savedLevel, worldPath);
+                }
+
+
+
+
+                player.sendMessage(Text.of("You have gained the " + powerType + " power!"), true);
+                playScrollSound(world, player);
+                return TypedActionResult.success(player.getStackInHand(hand));
+            }
         }
+
+        // If the power is the same as the one the player already has, do nothing
+        player.sendMessage(Text.of("You already have the " + powerType + " power!"), true);
+        return TypedActionResult.fail(player.getStackInHand(hand));
     }
 
     private void playScrollSound(World world, PlayerEntity player) {

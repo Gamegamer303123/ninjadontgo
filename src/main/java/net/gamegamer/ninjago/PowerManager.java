@@ -75,6 +75,21 @@ public class PowerManager {
         return false;
     }
 
+    public static boolean isPowerTaken(String power) {
+        for (UUID playerId : playerPowers.keySet()) {
+            Map<String, PowerData> powers = playerPowers.get(playerId);
+            if (powers != null && powers.containsKey(power)) {
+                // Check if the power is active for this player
+                if (powers.get(power).isActive()) {
+                    return true; // Someone actively has this power
+                }
+            }
+        }
+        return false; // No player has this power active
+    }
+
+
+
     public static boolean hasPower(PlayerEntity player, String power) {
         UUID playerId = player.getUuid();
         return playerPowers.containsKey(playerId) && playerPowers.get(playerId).containsKey(power);
