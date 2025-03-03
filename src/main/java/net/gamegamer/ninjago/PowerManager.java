@@ -122,6 +122,19 @@ public class PowerManager {
         savePowers(worldPath);
     }
 
+    public static void upgradePowerLevel(PlayerEntity player, String power, Path worldPath) {
+        UUID playerId = player.getUuid();
+
+        if (!playerPowers.containsKey(playerId) || !playerPowers.get(playerId).containsKey(power)) {
+            return; // Player doesn't have this power, do nothing
+        }
+
+        PowerData data = playerPowers.get(playerId).get(power);
+        data.setLevel(data.getLevel() + 1); // Increment the level
+
+        savePowers(worldPath); // Save the updated data
+    }
+
     private static class PowerData {
         private int level;
         private boolean active;

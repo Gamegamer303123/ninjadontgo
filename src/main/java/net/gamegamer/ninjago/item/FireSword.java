@@ -28,6 +28,7 @@ import net.minecraft.util.WorldSavePath;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.nio.file.Path;
 import java.util.List;
 
 public class FireSword extends SwordItem {
@@ -73,14 +74,15 @@ public class FireSword extends SwordItem {
                 world.addParticle(ModParticles.FIREWAVE_PARTICLE, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
                       //  null, player.getBlockPos(), SoundEvents.,
                         //SoundCategory.PLAYERS, 1.0F, 1.0F);
-                boolean success = PowerManager.assignPower(player, "fire", player.getServer().getSavePath(WorldSavePath.ROOT));
 
-                if (success) {
-                    player.sendMessage(Text.of("You have equipped the Fire power!"), false);
-                } else {
-                    player.sendMessage(Text.of("This power is already taken!"), false);
+
+
+
+                Path worldPath = player.getServer().getSavePath(WorldSavePath.ROOT);
+                String currentPower = PowerManager.getPlayerPower(player);
+                if (currentPower != null) {
+                    PowerManager.upgradePowerLevel(player, currentPower, worldPath);
                 }
-
 
 
 
