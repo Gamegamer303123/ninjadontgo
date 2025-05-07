@@ -5,6 +5,7 @@ import net.gamegamer.ninjago.PowerManager;
 import net.gamegamer.ninjago.entities.FireWave;
 import net.gamegamer.ninjago.entities.ModEntities;
 
+import net.gamegamer.ninjago.entities.SpinjitzuEntity;
 import net.gamegamer.ninjago.particles.ModParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -30,6 +31,8 @@ import net.minecraft.world.World;
 
 import java.nio.file.Path;
 import java.util.List;
+
+import static net.gamegamer.ninjago.entities.ModEntities.SPINJITZU_ENTITY_TYPE;
 
 public class FireSword extends SwordItem {
     public FireSword(ToolMaterial material, Settings settings) {
@@ -74,6 +77,12 @@ public class FireSword extends SwordItem {
                 world.addParticle(ModParticles.FIREWAVE_PARTICLE, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
                       //  null, player.getBlockPos(), SoundEvents.,
                         //SoundCategory.PLAYERS, 1.0F, 1.0F);
+
+                SpinjitzuEntity spinjitzu = new SpinjitzuEntity(SPINJITZU_ENTITY_TYPE, world);
+                spinjitzu.refreshPositionAndAngles(player.getX(), player.getY(), player.getZ(), 0, 0);
+
+                world.spawnEntity(spinjitzu);
+               // spinjitzu.startRiding(player, true);
 
 
 

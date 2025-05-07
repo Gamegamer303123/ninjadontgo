@@ -1,5 +1,6 @@
 package net.gamegamer.ninjago.entities;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.gamegamer.ninjago.Ninjadontgo;
 import net.minecraft.entity.*;
 import net.minecraft.registry.Registries;
@@ -14,6 +15,15 @@ public class ModEntities {
             Identifier.of(Ninjadontgo.MOD_ID, "firewave"),
             EntityType.Builder.create(FireWave::new, SpawnGroup.MISC)
                     .dimensions(5.0f, 0.001f)
+                    .build()
+    );
+
+
+    public static final EntityType<SpinjitzuEntity> SPINJITZU_ENTITY_TYPE = Registry.register(
+            Registries.ENTITY_TYPE,
+            Identifier.of(Ninjadontgo.MOD_ID, "spinjitzu"),
+            EntityType.Builder.create(SpinjitzuEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.6f, 1.8f) // size same as player
                     .build()
     );
 

@@ -3,23 +3,30 @@ package net.gamegamer.ninjago;
 import net.fabricmc.api.ModInitializer;
 
 
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.gamegamer.ninjago.entities.FireWave;
 import net.gamegamer.ninjago.entities.ModEntities;
+import net.gamegamer.ninjago.entities.SpinjitzuEntity;
 import net.gamegamer.ninjago.item.ModItems;
 import net.gamegamer.ninjago.particles.ModParticles;
+import net.minecraft.entity.EntityType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.WorldSavePath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static net.gamegamer.ninjago.entities.ModEntities.FIREWAVE;
+import static net.gamegamer.ninjago.entities.ModEntities.SPINJITZU_ENTITY_TYPE;
 
 public class Ninjadontgo implements ModInitializer {
 	public static final String MOD_ID = "ninjadontgo";
@@ -47,5 +54,8 @@ public class Ninjadontgo implements ModInitializer {
 		ModItems.registerModItems();
 		ModEntities.initialize();
 		ModParticles.registerParticles();
+
+
+
 	}
 }
